@@ -64,6 +64,11 @@ setMethod(
         call. = FALSE, immediate. = TRUE
       )
     }
+    if (sum(map_int(res_list, ncol)) == 0) {
+      # return empty dataframe if no output received
+      # https://github.com/prestodb/RPresto/issues/254
+      return(data.frame())
+    }
     df <- .combine_results(res_list)
     return(df)
   }
